@@ -18,12 +18,6 @@ public class User {
 
 	}
 
-
-	/**
-	 * @param userName
-	 * @param age
-	 * @param address
-	 */
 	public User(String userName, int age, String address) {
 		super();
 		this.userName = userName;
