@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.springbootdemo.business;
 
@@ -19,50 +19,48 @@ import com.springbootdemo.model.User;
 @Service
 public class UserService {
 
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-	private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    private List<User> listUsers = new ArrayList<User>();
 
-	private  List<User> listUsers=new ArrayList<User>();
+    public List<User> listUsers() {
+        log.info("listing User");
+        return listUsers;
+    }
 
-	public List<User> listUsers(){
-		log.info("listing User");
-		return listUsers;
-	}
+    public User getUser(Long id) {
+        log.info("get User {}", id);
+        if (!listUsers.isEmpty()) {
+            return listUsers.stream().filter(t -> t.getId().equals(id)).findFirst().get();
+        } else {
+            return null;
+        }
 
-	public User getUser(String username){
-		log.info("get User {}",username);
-		if(!listUsers.isEmpty()){
-			return	listUsers.stream().filter(t->t.getUserName().equals(username)).findFirst().get();
-		}else{
-			return null;
-		}
+    }
 
-	}
+    public void addUser(User user) {
+        log.info("add User");
+        listUsers.add(user);
+        log.info(" User added");
+    }
 
-	public void addUser(User user){
-		log.info("add User");
-		listUsers.add(user);
-		log.info(" User added");
-	}
+    public User updateUser(Long id, User user) {
+        log.info("updating User ={}", user);
+        for (int i = 0; i < listUsers.size(); i++) {
+            User usr = listUsers.get(i);
+            if (usr.getId().equals(id)) {
+                listUsers.set(i, user);
+                log.info(" User updated");
+            }
+        }
+        return user;
 
-	public void updateUser(String username, User user) {
-		log.info("updating User");
-		for(int i=0;i<listUsers.size();i++){
-			User usr=listUsers.get(i);
-			if(usr.getUserName().equals(username)){
-				listUsers.set(i, user);
-				log.info(" User updated");
-				return;
-			}
-		}
+    }
 
-	}
-
-	public void deleteUser(String username) {
-		log.info("deleting User");
-		listUsers.removeIf(t->t.getUserName().equals(username));
-		log.info(" User deleted");
-	}
-
+    public void deleteUser(Long id) {
+        log.info("deleting User={}", id);
+        listUsers.removeIf(t -> t.getId().equals(id));
+        log.info(" User deleted");
+    }
 
 }
