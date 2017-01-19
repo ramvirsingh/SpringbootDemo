@@ -12,17 +12,17 @@ import java.util.List;
  */
 public interface IRawService<T> {
 
-	T findById(final Long id);
+    T findById(final Long id);
 
-	List<T> findByName(final String name);
+    List<T> findByName(final String name);
 
-	List<T> findAll();
+    List<T> findAll();
 
-	void delete(final Long id);
+    void delete(final Long id);
 
-	void deleteAll();
+    void deleteAll();
 
-	T save(final T resource);
+    T save(final T resource);
 
-	T update(final T resource);
+    T update(final Long id, final T resource);
 }

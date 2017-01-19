@@ -9,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import com.springbootdemo.web.dto.UserDTO;
 
@@ -29,19 +28,22 @@ public class User {
     private Long id;
 
     @Column(name = "USER_NAME", unique = true, nullable = false)
+    @NotNull
     private String userName;
 
     @Column(name = "FIRST_NAME", nullable = false)
+    @NotNull
     private String firstName;
 
     @Column(name = "LAST_NAME", nullable = false)
+    @NotNull
     private String lastName;
 
     @Column(name = "Department", nullable = false)
     private String department;
 
-    
     @Column(name = "PASSWORD", nullable = false)
+    @NotNull
     private String password;
 
     public User() {

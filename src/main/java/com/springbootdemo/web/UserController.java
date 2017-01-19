@@ -24,44 +24,44 @@ import com.springbootdemo.web.dto.UserDTO;
 @RestController
 public class UserController {
 
-	@Autowired
-	private IUserService userService;
+    @Autowired
+    private IUserService userService;
 
-	@RequestMapping("/user")
-	public List<UserDTO> listUsers() {
-		return userService.findAll();
-	}
+    @RequestMapping("/user")
+    public List<UserDTO> listUsers() {
+        return userService.findAll();
+    }
 
-	@RequestMapping("/user/{id}")
-	public UserDTO getUser(@PathVariable Long id) {
-		return userService.findById(id);
-	}
+    @RequestMapping("/user/{id}")
+    public UserDTO getUser(@PathVariable Long id) {
+        return userService.findById(id);
+    }
 
-	@RequestMapping("/user/name/{userName}")
-	public List<UserDTO> getUserByUserName(@PathVariable String userName) {
-		return userService.findByName(userName);
-	}
+    @RequestMapping("/user/name/{userName}")
+    public List<UserDTO> getUserByUserName(@PathVariable String userName) {
+        return userService.findByName(userName);
+    }
 
-	@RequestMapping(method = RequestMethod.POST, value = "/user")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void addUser(@RequestBody UserDTO userDTO) {
-		userService.save(userDTO);
-	}
+    @RequestMapping(method = RequestMethod.POST, value = "/user")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUser(@RequestBody UserDTO userDTO) {
+        userService.save(userDTO);
+    }
 
-	@RequestMapping(method = RequestMethod.PUT, value = "/user/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
-		userService.update(userDTO);
-	}
+    @RequestMapping(method = RequestMethod.PUT, value = "/user/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
+        userService.update(id, userDTO);
+    }
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/user/{id}")
-	public void deleteUser(@PathVariable Long id) {
-		userService.delete(id);
-	}
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user/{id}")
+    public void deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+    }
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/user")
-	public void deleteAll() {
-		userService.deleteAll();
+    @RequestMapping(method = RequestMethod.DELETE, value = "/user")
+    public void deleteAll() {
+        userService.deleteAll();
 
-	}
+    }
 }
