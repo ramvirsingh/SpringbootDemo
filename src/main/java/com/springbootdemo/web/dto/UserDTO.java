@@ -3,7 +3,12 @@
  */
 package com.springbootdemo.web.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import com.springbootdemo.model.User;
+import com.springbootdemo.util.ValidEmail;
 
 /**
  * @author RamS
@@ -23,6 +28,14 @@ public class UserDTO {
 
     private String password;
 
+    @Min(0)
+    @Max(100)
+    private int age;
+
+    @NotNull
+    @ValidEmail
+    private String email;
+
     public UserDTO() {
         super();
     }
@@ -34,8 +47,10 @@ public class UserDTO {
      * @param lastName
      * @param department
      * @param password
+     * @param age
+     * @param email
      */
-    public UserDTO(Long id, String userName, String firstName, String lastName, String department, String password) {
+    public UserDTO(Long id, String userName, String firstName, String lastName, String department, String password, int age, String email) {
         super();
         this.id = id;
         this.userName = userName;
@@ -43,6 +58,8 @@ public class UserDTO {
         this.lastName = lastName;
         this.department = department;
         this.password = password;
+        this.age = age;
+        this.email = email;
     }
 
     public UserDTO(User user) {
@@ -53,6 +70,8 @@ public class UserDTO {
         lastName = user.getLastName();
         department = user.getDepartment();
         password = user.getPassword();
+        age = user.getAge();
+        email = user.getEmail();
     }
 
     /**
@@ -139,12 +158,65 @@ public class UserDTO {
         this.password = password;
     }
 
+    /**
+     * @return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "UserDTO [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName + ", department=" + department + ", password=" + password + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("UserDTO [");
+        if (id != null) {
+            builder.append("id=").append(id).append(", ");
+        }
+        if (userName != null) {
+            builder.append("userName=").append(userName).append(", ");
+        }
+        if (firstName != null) {
+            builder.append("firstName=").append(firstName).append(", ");
+        }
+        if (lastName != null) {
+            builder.append("lastName=").append(lastName).append(", ");
+        }
+        if (department != null) {
+            builder.append("department=").append(department).append(", ");
+        }
+        if (password != null) {
+            builder.append("password=").append(password).append(", ");
+        }
+        builder.append("age=").append(age).append(", ");
+        if (email != null) {
+            builder.append("email=").append(email);
+        }
+        builder.append("]");
+        return builder.toString();
     }
 
 }

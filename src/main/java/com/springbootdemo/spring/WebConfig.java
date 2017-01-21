@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -45,6 +46,12 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         Optional<HttpMessageConverter<?>> converterfound = converters.stream().filter(c -> c instanceof AbstractJackson2HttpMessageConverter).findFirst();
         if (converterfound.isPresent()) {
             AbstractJackson2HttpMessageConverter converter = (AbstractJackson2HttpMessageConverter) converterfound.get();
+            converter.getObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+            converter.getObjectMapper().enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        }
+        final Optional<HttpMessageConverter<?>> xmlConverterFound = converters.stream().filter(c -> c instanceof MappingJackson2XmlHttpMessageConverter).findFirst();
+        if (xmlConverterFound.isPresent()) {
+            final MappingJackson2XmlHttpMessageConverter converter = (MappingJackson2XmlHttpMessageConverter) xmlConverterFound.get();
             converter.getObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
             converter.getObjectMapper().enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         }

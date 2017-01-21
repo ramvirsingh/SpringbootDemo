@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import com.springbootdemo.util.ValidEmail;
 import com.springbootdemo.web.dto.UserDTO;
 
 /**
@@ -46,6 +49,17 @@ public class User {
     @NotNull
     private String password;
 
+    @Column(name = "AGE", nullable = false)
+    @Min(0)
+    @Max(100)
+    @NotNull
+    private int age;
+
+    @Column(name = "EMAIL", nullable = false)
+    @NotNull
+    @ValidEmail
+    private String email;
+
     public User() {
         super();
     }
@@ -58,7 +72,7 @@ public class User {
      * @param department
      * @param password
      */
-    public User(Long id, String userName, String firstName, String lastName, String department, String password) {
+    public User(Long id, String userName, String firstName, String lastName, String department, String password, int age, String email) {
         super();
         this.id = id;
         this.userName = userName;
@@ -66,6 +80,8 @@ public class User {
         this.lastName = lastName;
         this.department = department;
         this.password = password;
+        this.age = age;
+        this.email = email;
     }
 
     public User(UserDTO userdto) {
@@ -75,6 +91,8 @@ public class User {
         lastName = userdto.getLastName();
         department = userdto.getDepartment();
         password = userdto.getPassword();
+        age = userdto.getAge();
+        email = userdto.getEmail();
     }
 
     /**
@@ -161,12 +179,65 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * @return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     /* (non-Javadoc)
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName + ", department=" + department + ", password=" + password + "]";
+        StringBuilder builder = new StringBuilder();
+        builder.append("User [");
+        if (id != null) {
+            builder.append("id=").append(id).append(", ");
+        }
+        if (userName != null) {
+            builder.append("userName=").append(userName).append(", ");
+        }
+        if (firstName != null) {
+            builder.append("firstName=").append(firstName).append(", ");
+        }
+        if (lastName != null) {
+            builder.append("lastName=").append(lastName).append(", ");
+        }
+        if (department != null) {
+            builder.append("department=").append(department).append(", ");
+        }
+        if (password != null) {
+            builder.append("password=").append(password).append(", ");
+        }
+        builder.append("age=").append(age).append(", ");
+        if (email != null) {
+            builder.append("email=").append(email);
+        }
+        builder.append("]");
+        return builder.toString();
     }
 
 }

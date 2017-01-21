@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,14 +45,14 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/user")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addUser(@RequestBody UserDTO userDTO) {
-        userService.save(userDTO);
+    public UserDTO addUser(@RequestBody @Validated UserDTO userDTO) {
+        return userService.save(userDTO);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/user/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateUser(@RequestBody UserDTO userDTO, @PathVariable Long id) {
-        userService.update(id, userDTO);
+    public UserDTO updateUser(@RequestBody @Validated UserDTO userDTO, @PathVariable Long id) {
+        return userService.update(id, userDTO);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/user/{id}")
