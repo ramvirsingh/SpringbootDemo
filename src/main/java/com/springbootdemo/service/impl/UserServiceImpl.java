@@ -79,7 +79,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDTO update(Long id, UserDTO userDTO) {
         RestPreconditions.checkRequestElementNotNull(userDTO);
-        RestPreconditions.checkRequestElementNotNull(userDTO.getId());
+        RestPreconditions.checkRequestElementNotNull(userDTO.getId(), userDTO.getClass().getSimpleName() + " id in request payload is null");
         RestPreconditions.checkIfBadFRequest(userDTO.getId() == id, userDTO.getClass().getSimpleName() + " id and uri id don't match");
         User user = RestPreconditions.checkNotNull(userDao.findOne(userDTO.getId()));
 

@@ -27,17 +27,17 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @RequestMapping("/user")
+    @RequestMapping(method = RequestMethod.GET, value = "/user")
     public List<UserDTO> listUsers() {
         return userService.findAll();
     }
 
-    @RequestMapping("/user/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/user/{id}")
     public UserDTO getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-    @RequestMapping("/user/name/{userName}")
+    @RequestMapping(method = RequestMethod.GET, value = "/user/name/{userName}")
     public List<UserDTO> getUserByUserName(@PathVariable String userName) {
         return userService.findByName(userName);
     }
